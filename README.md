@@ -1,5 +1,7 @@
 # Hades
 
+[![Join the chat at https://gitter.im/ex-hades/Lobby](https://badges.gitter.im/ex-hades/Lobby.svg)](https://gitter.im/ex-hades/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
