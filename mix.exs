@@ -42,7 +42,8 @@ defmodule Hades.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.7", only: :test}
+      {:excoveralls, "~> 0.7", only: :test},
+      {:stream_data, "~> 0.1", only: :test}
     ]
   end
 
