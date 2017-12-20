@@ -1,0 +1,24 @@
+{
+  "default_stop_words": [
+    "defmodule",
+    "defrecord",
+    "defimpl",
+    "def.+(.+\/\/.+).+do"
+  ],
+
+  "terminal_options": {
+    "file_column_width": 40
+  },
+
+  "custom_stop_words": [
+  ],
+
+  "coverage_options": {
+    "treat_no_relevant_lines_as_covered": true,
+    "output_dir": "cover/",
+    "template_path": "custom/path/to/template/",
+    "minimum_coverage": 90
+  },
+
+  "skip_files": []
+}
