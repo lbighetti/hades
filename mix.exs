@@ -10,7 +10,9 @@ defmodule Hades.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test]
     ]
   end
 
@@ -39,6 +41,8 @@ defmodule Hades.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.7", only: :test},
       {:stream_data, "~> 0.1", only: :test}
     ]
   end

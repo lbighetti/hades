@@ -2,20 +2,27 @@
 
 [![Join the chat at https://gitter.im/ex-hades/Lobby](https://badges.gitter.im/ex-hades/Lobby.svg)](https://gitter.im/ex-hades/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-To start your Phoenix server:
+Hades is an open-source mentorship platform built with Elixir.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Start Phoenix endpoint with `mix phx.server`
+## Starting Hades server
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+To start Hades:
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+  * [Install nanobox](https://docs.nanobox.io/install/)
+  * Install dependencies with `nanobox run mix deps.get`
+  * Create your database with `nanobox run mix ecto.create`
+  * Migrate the database with `nanobox run mix ecto.migrate`
+  * Start Phoenix endpoint with `nanobox run mix phx.server`
 
-## Learn more
+You should get a message like:
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+> If you run a server, access it at >> 172.21.0.3
+
+Then you can access the hello world endpoint at whatever ip shows up there in port 4000, /hello.
+
+In this example, open your browser and type `172.21.0.3:4000/hello`
+
+
+## Running Tests
+
+* To run tests use `nanobox run mix test`
