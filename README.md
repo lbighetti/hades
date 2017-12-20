@@ -25,4 +25,4 @@ In this example, open your browser and type `172.21.0.3:4000/hello`
 
 ## Running Tests
 
-* To run tests use `nanobox mix test`
+* To run tests use `nanobox run mix test`
