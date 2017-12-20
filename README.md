@@ -21,3 +21,8 @@ You should get a message like:
 Then you can access the hello world endpoint at whatever ip shows up there in port 4000, /hello.
 
 In this example, open your browser and type `172.21.0.3:4000/hello`
+
+
+## Running Tests
+
+* To run tests use `nanobox mix test`
