@@ -40,7 +40,7 @@ config :phoenix, :stacktrace_depth, 20
 config :hades, Hades.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "",
+  password: "postgres",
   database: "hades_dev",
   hostname: "localhost",
   pool_size: 10
