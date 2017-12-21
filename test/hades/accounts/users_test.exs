@@ -32,4 +32,10 @@ defmodule Hades.Accounts.UsersTest do
       assert user.is_admin == true
     end
   end
+
+  describe "get_user!/1" do
+    test "returns chosen resource with valid data", %{user: user} do
+      assert %User{} = Users.get_user!(user.id)
+    end
+  end
 end
