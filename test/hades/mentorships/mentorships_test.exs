@@ -54,16 +54,5 @@ defmodule Hades.MentorshipsTest do
       assert {:error, %Ecto.Changeset{}} = Mentorships.update_mentor(mentor, @invalid_attrs)
       assert mentor == Mentorships.get_mentor!(mentor.id)
     end
-
-    test "delete_mentor/1 deletes the mentor" do
-      mentor = mentor_fixture()
-      assert {:ok, %Mentor{}} = Mentorships.delete_mentor(mentor)
-      assert_raise Ecto.NoResultsError, fn -> Mentorships.get_mentor!(mentor.id) end
-    end
-
-    test "change_mentor/1 returns a mentor changeset" do
-      mentor = mentor_fixture()
-      assert %Ecto.Changeset{} = Mentorships.change_mentor(mentor)
-    end
   end
 end

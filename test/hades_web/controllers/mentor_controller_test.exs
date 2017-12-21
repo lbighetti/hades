@@ -64,18 +64,6 @@ defmodule HadesWeb.MentorControllerTest do
     end
   end
 
-  describe "delete mentor" do
-    setup [:create_mentor]
-
-    test "deletes chosen mentor", %{conn: conn, mentor: mentor} do
-      conn = delete conn, mentor_path(conn, :delete, mentor)
-      assert response(conn, 204)
-      assert_error_sent 404, fn ->
-        get conn, mentor_path(conn, :show, mentor)
-      end
-    end
-  end
-
   defp create_mentor(_) do
     mentor = fixture(:mentor)
     {:ok, mentor: mentor}
