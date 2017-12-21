@@ -21,6 +21,17 @@ defmodule Hades.Accounts.User do
     user
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> validate_email
+  end
+
+  def changeset_update(user, attrs) do
+    user
+    |> cast(attrs, [:email, :name, :is_admin])
+    |> validate_email
+  end
+
+  defp validate_email(changeset) do
+    changeset
     |> unique_constraint(:email)
     |> validate_format(:email, ~r/\A[^@\s]+@[^@\s]+\z/)
     |> validate_length(:email, min: 6, max: 255)
