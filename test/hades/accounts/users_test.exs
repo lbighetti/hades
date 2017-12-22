@@ -15,7 +15,7 @@ defmodule Hades.Accounts.UsersTest do
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =
       attrs
-      |> Enum.into(Map.merge(@valid_attrs, %{password: "some password"}))
+      |> Enum.into(Map.merge(@valid_attrs, %{password: FakeData.term(20)}))
       |> Auth.signup
     user
   end
