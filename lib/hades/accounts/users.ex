@@ -9,4 +9,6 @@ defmodule Hades.Accounts.Users do
     |> User.changeset_update(attrs)
     |> Repo.update
   end
+
+  def delete_user(user), do: Repo.delete(user)
 end

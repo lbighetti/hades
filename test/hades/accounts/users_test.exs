@@ -24,6 +24,12 @@ defmodule Hades.Accounts.UsersTest do
     %{user: user}
   end
 
+  describe "get_user!/1" do
+    test "returns chosen resource with valid data", %{user: user} do
+      assert %User{} = Users.get_user!(user.id)
+    end
+  end
+
   describe "update_user/2" do
     test "updates user with valid data", %{user: user} do
       assert {:ok, %User{} = user} = Users.update_user(user, @valid_attrs)
@@ -33,9 +39,9 @@ defmodule Hades.Accounts.UsersTest do
     end
   end
 
-  describe "get_user!/1" do
-    test "returns chosen resource with valid data", %{user: user} do
-      assert %User{} = Users.get_user!(user.id)
+  describe "delete_user/1" do
+    test "deletes user with valid data", %{user: user} do
+      assert {:ok, %User{} = _user} = Users.delete_user(user)
     end
   end
 end
