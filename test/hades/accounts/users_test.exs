@@ -1,14 +1,15 @@
 defmodule Hades.Accounts.UsersTest do
   use Hades.DataCase
 
+  alias Hades.FakeData
   alias Hades.Accounts.Auth
   alias Hades.Accounts.User
   alias Hades.Accounts.Users
 
   @valid_attrs %{
-    email: "email@example.com",
-    name: "some name",
-    is_admin: true
+    email: FakeData.email,
+    name: FakeData.term(20),
+    is_admin: FakeData.boolean
   }
 
   def user_fixture(attrs \\ %{}) do
@@ -33,9 +34,9 @@ defmodule Hades.Accounts.UsersTest do
   describe "update_user/2" do
     test "updates user with valid data", %{user: user} do
       assert {:ok, %User{} = user} = Users.update_user(user, @valid_attrs)
-      assert user.email == "email@example.com"
-      assert user.name == "some name"
-      assert user.is_admin == true
+      assert user.email == @valid_attrs.email
+      assert user.name == @valid_attrs.name
+      assert user.is_admin == @valid_attrs.is_admin
     end
   end
 
