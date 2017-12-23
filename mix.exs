@@ -43,7 +43,10 @@ defmodule Hades.Mixfile do
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.7", only: :test},
-      {:stream_data, "~> 0.1", only: :test}
+      {:stream_data, "~> 0.1", only: :test},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 0.12.0"},
+      {:secure_random, "~> 0.5"},
     ]
   end
 
