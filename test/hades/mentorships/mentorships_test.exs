@@ -8,7 +8,8 @@ defmodule Hades.MentorshipsTest do
 
     @valid_attrs %{is_active: true, max_mentorships: 2, skill_areas: ["Backend"]}
     @update_attrs %{is_active: false, max_mentorships: 3, skill_areas: ["Backend", "DevOps"]}
-    @invalid_attrs %{is_active: nil, max_mentorships: nil, skill_areas: ["Bad input","Not a thing"]}
+    @invalid_attrs %{is_active: nil, max_mentorships: nil, skill_areas: []}
+    @invalid_skill_areas_attrs %{is_active: false, max_mentorships: 3, skill_areas: ["Bad", "Skills"]}
 
     def mentor_fixture(attrs \\ %{}) do
       {:ok, mentor} =
@@ -38,6 +39,10 @@ defmodule Hades.MentorshipsTest do
 
     test "create_mentor/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Mentorships.create_mentor(@invalid_attrs)
+    end
+
+    test "create_mentor/1 with invalid skill areas returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Mentorships.create_mentor(@invalid_skill_areas_attrs)
     end
 
     test "update_mentor/2 with valid data updates the mentor" do

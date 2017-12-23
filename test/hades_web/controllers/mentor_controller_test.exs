@@ -7,6 +7,7 @@ defmodule HadesWeb.MentorControllerTest do
   @create_attrs %{is_active: true, max_mentorships: 2, skill_areas: ["Backend", "Frontend"]}
   @update_attrs %{is_active: false, max_mentorships: 3, skill_areas: ["Backend", "Frontend", "DevOps"]}
   @invalid_attrs %{is_active: nil, max_mentorships: nil, skill_areas: ["Bad input","Not a thing"]}
+  @invalid_skill_areas_attrs %{is_active: false, max_mentorships: 3, skill_areas: ["Bad", "Skills"]}
 
   def fixture(:mentor) do
     {:ok, mentor} = Mentorships.create_mentor(@create_attrs)
@@ -41,6 +42,11 @@ defmodule HadesWeb.MentorControllerTest do
       conn = post conn, mentor_path(conn, :create), mentor: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
+
+    test "renders errors when skill areas is invalid", %{conn: conn} do
+      conn = post conn, mentor_path(conn, :create), mentor: @invalid_skill_areas_attrs
+      assert json_response(conn, 422)["errors"] != %{}
+    end
   end
 
   describe "update mentor" do
@@ -60,6 +66,11 @@ defmodule HadesWeb.MentorControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, mentor: mentor} do
       conn = put conn, mentor_path(conn, :update, mentor), mentor: @invalid_attrs
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+
+    test "renders errors when skill areas is invalid", %{conn: conn, mentor: mentor} do
+      conn = put conn, mentor_path(conn, :update, mentor), mentor: @invalid_skill_areas_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
