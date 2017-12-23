@@ -19,6 +19,31 @@ defmodule Hades.Accounts.AuthTest do
     password: nil
   }
 
+  @reset_password_valid_attrs %{
+    old_password: "S0m3p4ssW0rd",
+    password: "n3wP455w0rd",
+    password_confirmation: "n3wP455w0rd"
+  }
+
+  @reset_password_invalid_attrs %{
+    old_password: "S0m3p4ssW0rd",
+    password: "n3wP455w0rd",
+    password_confirmation: "d0ntm4tch"
+  }
+
+  def user_fixture(attrs \\ %{}) do
+    {:ok, user} =
+      attrs
+      |> Enum.into(Map.merge(@valid_attrs, %{email: FakeData.email, password: "S0m3p4ssW0rd"}))
+      |> Auth.signup
+    user
+  end
+
+  setup do
+    user = user_fixture()
+    %{user: user}
+  end
+
   describe "signup/1" do
     test "creates a user with valid data" do
       assert {:ok, %User{} = user} = Auth.signup(@valid_attrs)
@@ -49,6 +74,20 @@ defmodule Hades.Accounts.AuthTest do
 
     test "does not create user when password has an invalid format" do
       assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :password, "12345678"))
+    end
+  end
+
+  describe "reset_password/2" do
+    test "resets password with valid data", %{user: user} do
+      assert {:ok, %User{}} = Auth.reset_password(user, @reset_password_valid_attrs)
+    end
+
+    test "returns error when passwords don't match", %{user: user} do
+      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, @reset_password_invalid_attrs)
+    end
+
+    test "does not reset password when new password data is not provided", %{user: user} do
+      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, %{old_password: "S0m3p4ssW0rd"})
     end
   end
 end

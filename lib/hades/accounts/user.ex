@@ -31,9 +31,16 @@ defmodule Hades.Accounts.User do
     |> Auth.put_authentication_token
   end
 
-  def changeset_update(user, attrs) do
+  def changeset_update_user(user, attrs) do
     user
     |> cast(attrs, [:email, :name, :is_admin])
     |> Validation.validate_email
+  end
+
+  def changeset_update_password(user, attrs) do
+    user
+    |> cast(attrs, [:password, :password_confirmation])
+    |> validate_required([:password, :password_confirmation])
+    |> Encryption.change_password
   end
 end

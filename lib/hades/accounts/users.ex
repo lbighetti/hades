@@ -6,7 +6,7 @@ defmodule Hades.Accounts.Users do
 
   def update_user(user, attrs) do
     user
-    |> User.changeset_update(attrs)
+    |> User.changeset_update_user(attrs)
     |> Repo.update
   end
 
