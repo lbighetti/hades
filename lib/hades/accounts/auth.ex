@@ -25,13 +25,4 @@ defmodule Hades.Accounts.Auth do
       {:error, :invalid_password}
     end
   end
-
-  def put_authentication_token(changeset) do
-    case changeset do
-      %Ecto.Changeset{valid?: true} ->
-        put_change(changeset, :auth_token, SecureRandom.urlsafe_base64(32))
-      _ ->
-        changeset
-    end
-  end
 end

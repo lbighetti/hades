@@ -28,7 +28,7 @@ defmodule Hades.Accounts.User do
     |> Validation.validate_email
     |> Validation.validate_password
     |> Encryption.hash_password
-    |> Auth.put_authentication_token
+    |> Encryption.put_authentication_token
   end
 
   def changeset_update_user(user, attrs) do
