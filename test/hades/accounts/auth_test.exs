@@ -31,6 +31,10 @@ defmodule Hades.Accounts.AuthTest do
       assert {:error, %Ecto.Changeset{}} = Auth.signup(@invalid_attrs)
     end
 
+    test "does not create user when no data is provided" do
+      assert {:error, %Ecto.Changeset{}} = Auth.signup()
+    end
+
     test "does not create user when email is too short" do
       assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :email, "a@.co"))
     end
