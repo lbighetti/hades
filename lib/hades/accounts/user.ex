@@ -26,6 +26,7 @@ defmodule Hades.Accounts.User do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> Validation.validate_email
+    |> Validation.validate_password
     |> Encryption.hash_password
     |> Auth.put_authentication_token
   end

@@ -38,5 +38,13 @@ defmodule Hades.Accounts.AuthTest do
     test "does not create user when email has invalid format" do
       assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :email, "example.com"))
     end
+
+    test "does not create user when password is too short" do
+      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :password, "S0m3p4s"))
+    end
+
+    test "does not create user when password has an invalid format" do
+      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :password, "12345678"))
+    end
   end
 end
