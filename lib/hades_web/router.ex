@@ -10,5 +10,6 @@ defmodule HadesWeb.Router do
     pipe_through :api
 
     get "/hello", HelloController, :hello
+    post "/auth/signup", AuthController, :signup
   end
 end
