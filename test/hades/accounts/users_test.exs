@@ -8,14 +8,14 @@ defmodule Hades.Accounts.UsersTest do
 
   @valid_attrs %{
     email: FakeData.email,
-    name: FakeData.term(20),
-    is_admin: FakeData.boolean
+    name: "some name",
+    is_admin: FakeData.boolean,
   }
 
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =
       attrs
-      |> Enum.into(Map.merge(@valid_attrs, %{password: FakeData.term(20)}))
+      |> Enum.into(Map.merge(@valid_attrs, %{password: "S0m3p4ssW0rd"}))
       |> Auth.signup
     user
   end

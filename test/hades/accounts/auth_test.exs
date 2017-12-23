@@ -7,9 +7,9 @@ defmodule Hades.Accounts.AuthTest do
 
   @valid_attrs %{
     email: FakeData.email,
-    name: FakeData.term(20),
+    name: "some name",
     is_admin: FakeData.boolean,
-    password: FakeData.term(20)
+    password: "S0m3p4ssW0rd"
   }
 
   @invalid_attrs %{
@@ -32,11 +32,11 @@ defmodule Hades.Accounts.AuthTest do
     end
 
     test "does not create user when email is too short" do
-      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :email, FakeData.term(1) <> "@" <> FakeData.term(3)))
+      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :email, "a@.co"))
     end
 
     test "does not create user when email has invalid format" do
-      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :email, FakeData.term(10)))
+      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :email, "example.com"))
     end
   end
 end

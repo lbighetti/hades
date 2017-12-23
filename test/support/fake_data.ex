@@ -17,8 +17,4 @@ defmodule Hades.FakeData do
   def boolean do
     Enum.take(StreamData.boolean, 1) |> List.last
   end
-
-  def term(length) do
-    Enum.take(StreamData.string(:alphanumeric), length) |> List.last
-  end
 end
