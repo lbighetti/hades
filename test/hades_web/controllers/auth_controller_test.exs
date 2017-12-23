@@ -17,6 +17,10 @@ defmodule HadesWeb.AuthControllerTest do
     password: nil
   }
 
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
   describe "signup/2" do
     test "renders user when data is valid", %{conn: conn} do
       conn = post conn, auth_path(conn, :signup), user: @valid_attrs
