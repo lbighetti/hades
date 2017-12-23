@@ -1,5 +1,5 @@
 defmodule Hades.Accounts.Auth do
-  import Ecto.{Query, Changeset}, warn: false
+  import Ecto.Changeset
 
   alias Hades.Repo
   alias Hades.Accounts.User

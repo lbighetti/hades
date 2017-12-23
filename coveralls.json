@@ -20,5 +20,20 @@
     "minimum_coverage": 90
   },
 
-  "skip_files": []
+  "skip_files": [
+    "test/support/data_case.ex",
+    "test/support/channel_case.ex",
+    "lib/hades/application.ex",
+    "lib/hades/repo.ex",
+    "lib/hades_web.ex",
+    "lib/hades.ex",
+    "lib/hades_web/views/error_helpers.ex",
+    "lib/hades_web/gettext.ex",
+    "lib/hades_web/endpoint.ex",
+    "test/support/conn_case.ex",
+    "lib/hades_web/views/error_view.ex",
+    "lib/hades_web/router.ex",
+    "lib/hades_web/channels/user_socket.ex",
+    "lib/hades_web/controllers/hello_controll"
+  ]
 }
