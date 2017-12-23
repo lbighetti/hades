@@ -4,6 +4,7 @@
 /deps
 /*.ez
 /cover
+*.env
 
 # Generated on crash by the VM
 erl_crash.dump
