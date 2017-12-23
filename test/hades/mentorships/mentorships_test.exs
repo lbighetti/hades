@@ -6,9 +6,9 @@ defmodule Hades.MentorshipsTest do
   describe "mentors" do
     alias Hades.Mentorships.Mentor
 
-    @valid_attrs %{is_active: true, max_mentorships: 42, skill_areas: []}
-    @update_attrs %{is_active: false, max_mentorships: 43, skill_areas: []}
-    @invalid_attrs %{is_active: nil, max_mentorships: nil, skill_areas: nil}
+    @valid_attrs %{is_active: true, max_mentorships: 2, skill_areas: ["Backend"]}
+    @update_attrs %{is_active: false, max_mentorships: 3, skill_areas: ["Backend", "DevOps"]}
+    @invalid_attrs %{is_active: nil, max_mentorships: nil, skill_areas: ["Bad input","Not a thing"]}
 
     def mentor_fixture(attrs \\ %{}) do
       {:ok, mentor} =
@@ -32,8 +32,8 @@ defmodule Hades.MentorshipsTest do
     test "create_mentor/1 with valid data creates a mentor" do
       assert {:ok, %Mentor{} = mentor} = Mentorships.create_mentor(@valid_attrs)
       assert mentor.is_active == true
-      assert mentor.max_mentorships == 42
-      assert mentor.skill_areas == []
+      assert mentor.max_mentorships == 2
+      assert mentor.skill_areas == ["Backend"]
     end
 
     test "create_mentor/1 with invalid data returns error changeset" do
@@ -45,8 +45,8 @@ defmodule Hades.MentorshipsTest do
       assert {:ok, mentor} = Mentorships.update_mentor(mentor, @update_attrs)
       assert %Mentor{} = mentor
       assert mentor.is_active == false
-      assert mentor.max_mentorships == 43
-      assert mentor.skill_areas == []
+      assert mentor.max_mentorships == 3
+      assert mentor.skill_areas == ["Backend", "DevOps"]
     end
 
     test "update_mentor/2 with invalid data returns error changeset" do

@@ -4,9 +4,9 @@ defmodule HadesWeb.MentorControllerTest do
   alias Hades.Mentorships
   alias Hades.Mentorships.Mentor
 
-  @create_attrs %{is_active: true, max_mentorships: 42, skill_areas: []}
-  @update_attrs %{is_active: false, max_mentorships: 43, skill_areas: []}
-  @invalid_attrs %{is_active: nil, max_mentorships: nil, skill_areas: nil}
+  @create_attrs %{is_active: true, max_mentorships: 2, skill_areas: ["Backend", "Frontend"]}
+  @update_attrs %{is_active: false, max_mentorships: 3, skill_areas: ["Backend", "Frontend", "DevOps"]}
+  @invalid_attrs %{is_active: nil, max_mentorships: nil, skill_areas: ["Bad input","Not a thing"]}
 
   def fixture(:mentor) do
     {:ok, mentor} = Mentorships.create_mentor(@create_attrs)
@@ -33,8 +33,8 @@ defmodule HadesWeb.MentorControllerTest do
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "is_active" => true,
-        "max_mentorships" => 42,
-        "skill_areas" => []}
+        "max_mentorships" => 2,
+        "skill_areas" => ["Backend", "Frontend"]}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -54,8 +54,8 @@ defmodule HadesWeb.MentorControllerTest do
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "is_active" => false,
-        "max_mentorships" => 43,
-        "skill_areas" => []}
+        "max_mentorships" => 3,
+        "skill_areas" => ["Backend", "Frontend", "DevOps"]}
     end
 
     test "renders errors when data is invalid", %{conn: conn, mentor: mentor} do
