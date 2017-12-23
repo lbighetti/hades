@@ -5,6 +5,7 @@
 /*.ez
 /cover
 *.env
+/.elixir_ls
 
 # Generated on crash by the VM
 erl_crash.dump

@@ -4,6 +4,8 @@ defmodule HadesWeb.AuthController do
   alias Hades.Accounts.Auth
   alias Hades.Accounts.User
 
+  action_fallback HadesWeb.FallbackController
+
   def signup(conn, %{"user" => user_params}) do
     with {:ok, %User{} = user} <- Auth.signup(user_params) do
       conn
