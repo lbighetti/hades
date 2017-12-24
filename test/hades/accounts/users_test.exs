@@ -25,7 +25,7 @@ defmodule Hades.Accounts.UsersTest do
 
   describe "get_user!/1" do
     test "returns chosen resource with valid data", %{user: user} do
-      assert %User{} = Users.get_user!(user.id)
+      assert {:ok, %User{} = _user} = Users.get_user!(user.id)
     end
   end
 
