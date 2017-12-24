@@ -22,7 +22,7 @@ jobs:
       - run: mix deps.get
       - run: mix ecto.create
       - run: mix credo
-      - run: mix coveralls
+      - run: MIX_ENV=test mix do compile, coveralls.json
       - run: bash <(curl -s https://codecov.io/bash)
 
 notify:
