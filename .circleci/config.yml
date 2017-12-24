@@ -23,6 +23,7 @@ jobs:
       - run: mix ecto.create
       - run: mix credo
       - run: mix coveralls
+      - run: bash <(curl -s https://codecov.io/bash)
 
 notify:
   webhooks:
