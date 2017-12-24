@@ -1,8 +1,7 @@
 defmodule HadesWeb.AuthController do
   use HadesWeb, :controller
 
-  alias Hades.Accounts.Auth
-  alias Hades.Accounts.User
+  alias Hades.Accounts.{User, Auth}
 
   action_fallback HadesWeb.FallbackController
 

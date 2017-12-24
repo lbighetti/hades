@@ -2,8 +2,7 @@ defmodule Hades.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Hades.Accounts.Encryption
-  alias Hades.Accounts.Validation
+  alias Hades.Accounts.{Validation, Encryption}
 
   schema "users" do
     field :email, :string

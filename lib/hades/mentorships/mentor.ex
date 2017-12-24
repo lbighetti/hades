@@ -23,14 +23,14 @@ defmodule Hades.Mentorships.Mentor do
   end
 
   defp validate_skill_areas(changeset) do
-    invalid_skill_areas = 
+    invalid_skill_areas =
       changeset
       |> get_field(:skill_areas)
       |> Enum.reject(fn(x) -> Enum.member?(@allowed_skill_areas, x) end)
-    
+
     if Enum.empty? invalid_skill_areas do
       changeset
-    else 
+    else
       add_error(changeset, :skill_areas, "Invalid skill area(s)")
     end
   end

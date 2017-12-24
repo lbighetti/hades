@@ -24,7 +24,11 @@ defmodule HadesWeb.AuthControllerTest do
   describe "signup/2" do
     test "renders user when data is valid", %{conn: conn} do
       conn = post conn, auth_path(conn, :signup), user: @valid_attrs
-      assert json_response(conn, 201)["data"] != %{}
+      body = json_response(conn, 201)
+      assert body["data"]["email"] == @valid_attrs.email
+      assert body["data"]["name"] == @valid_attrs.name
+      assert body["data"]["is_admin"] == @valid_attrs.is_admin
+      refute body["data"]["password"]
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
