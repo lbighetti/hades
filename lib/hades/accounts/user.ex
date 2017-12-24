@@ -12,6 +12,7 @@ defmodule Hades.Accounts.User do
     field :password_hash, :string
     field :auth_token, :string
     field :is_admin, :boolean
+    has_one :mentor, Hades.Mentorships.Mentor
 
     timestamps()
   end
