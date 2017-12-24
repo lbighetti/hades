@@ -2,8 +2,7 @@ defmodule Hades.Accounts.AuthTest do
   use Hades.DataCase
 
   alias Hades.FakeData
-  alias Hades.Accounts.User
-  alias Hades.Accounts.Auth
+  alias Hades.Accounts.{Auth, User}
 
   @valid_attrs %{
     email: FakeData.email,

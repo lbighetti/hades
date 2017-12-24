@@ -10,6 +10,7 @@ defmodule HadesWeb.Router do
     pipe_through :api
 
     get "/hello", HelloController, :hello
+    post "/auth/signup", AuthController, :signup
     resources "/mentors", MentorController, only: [:index, :create, :show, :update]
   end
 end
