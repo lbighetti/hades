@@ -12,7 +12,7 @@ config :hades,
 # Configures the endpoint
 config :hades, HadesWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "Ey0bQLXc0zl3RLEwC/rGXEr1Tm66HP+jpmuzXag+9kafdSGlI3KSQd5J0saQJc8E",
+  secret_key_base: {:system, "SECRET_KEY_BASE"},
   render_errors: [view: HadesWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Hades.PubSub,
            adapter: Phoenix.PubSub.PG2]
