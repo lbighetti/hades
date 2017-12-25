@@ -1,6 +1,6 @@
 # Hades
 
-[![Join the chat at https://gitter.im/ex-hades/Lobby](https://badges.gitter.im/ex-hades/Lobby.svg)](https://gitter.im/ex-hades/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://img.shields.io/circleci/project/github/lbighetti/hades/master.svg)](https://circleci.com/gh/lbighetti/hades/tree/master) [![codecov](https://codecov.io/gh/lbighetti/hades/branch/master/graph/badge.svg)](https://codecov.io/gh/lbighetti/hades)
+[![Build Status](https://img.shields.io/circleci/project/github/lbighetti/hades/master.svg)](https://circleci.com/gh/lbighetti/hades/tree/master) [![codecov](https://codecov.io/gh/lbighetti/hades/branch/master/graph/badge.svg)](https://codecov.io/gh/lbighetti/hades) [![Ebert](https://ebertapp.io/github/lbighetti/hades.svg)](https://ebertapp.io/github/lbighetti/hades) [![Join the chat at https://gitter.im/ex-hades/Lobby](https://badges.gitter.im/ex-hades/Lobby.svg)](https://gitter.im/ex-hades/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Hades is an open-source mentorship platform built with Elixir.
 
