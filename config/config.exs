@@ -12,7 +12,7 @@ config :hades,
 # Configures the endpoint
 config :hades, HadesWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: {:system, "SECRET_KEY_BASE"},
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: HadesWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Hades.PubSub,
            adapter: Phoenix.PubSub.PG2]
@@ -24,7 +24,7 @@ config :logger, :console,
 
 config :hades, Hades.Guardian,
   issuer: "hades",
-  secret_key: {:system, "GUARDIAN_DEMO_SECRET_KEY"}
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
