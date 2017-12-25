@@ -1,6 +1,8 @@
 defmodule Hades.Guardian do
   use Guardian, otp_app: :hades
 
+  alias Hades.Accounts.Users
+
   def subject_for_token(resource, _claims) do
     # You can use any value for the subject of your token but
     # it should be useful in retrieving the resource later, see
@@ -19,7 +21,7 @@ defmodule Hades.Guardian do
     # found in the `"sub"` key. In `above subject_for_token/2` we returned
     # the resource id so here we'll rely on that to look it up.
     id = claims["sub"]
-    resource = Hades.get_resource_by_id(id)
+    resource = Users.get_user!(id)
     {:ok,  resource}
   end
   def resource_from_claims(_claims) do
