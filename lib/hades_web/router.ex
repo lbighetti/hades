@@ -11,6 +11,7 @@ defmodule HadesWeb.Router do
 
     get "/hello", HelloController, :hello
     post "/auth/signup", AuthController, :signup
+    get "/users/:id", UserController, :get_user
     resources "/mentors", MentorController, only: [:index, :create, :show, :update]
   end
 end
