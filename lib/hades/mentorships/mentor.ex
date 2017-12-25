@@ -4,12 +4,13 @@ defmodule Hades.Mentorships.Mentor do
   alias Hades.Mentorships.Mentor
 
   @allowed_skill_areas ~w(Backend Frontend DevOps UX/UI Mobile Fullstack)
+  @valid_attrs ~w(is_active max_mentorships skill_areas)a
 
   schema "mentors" do
     field :is_active, :boolean, default: false
     field :max_mentorships, :integer
     field :skill_areas, {:array, :string}
-    field :user_id, :id
+    belongs_to :user, Hades.Accounts.User
 
     timestamps()
   end
@@ -17,8 +18,8 @@ defmodule Hades.Mentorships.Mentor do
   @doc false
   def changeset(%Mentor{} = mentor, attrs) do
     mentor
-    |> cast(attrs, [:is_active, :max_mentorships, :skill_areas])
-    |> validate_required([:is_active, :max_mentorships, :skill_areas])
+    |> cast(attrs, @valid_attrs)
+    |> validate_required(@valid_attrs)
     |> validate_skill_areas
   end
 
