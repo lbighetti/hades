@@ -15,6 +15,7 @@ defmodule HadesWeb.Router do
     plug Guardian.Plug.Pipeline, module: Hades.Guardian,
       error_handler: Hades.AuthErrorHandler
     plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
     plug Guardian.Plug.LoadResource
   end
 
