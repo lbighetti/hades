@@ -33,6 +33,6 @@
     "lib/hades_web/views/error_view.ex",
     "lib/hades_web/views/error_helpers.ex",
     "lib/hades_web/channels/user_socket.ex",
-    "lib/hades_web/controllers/hello_controll"
+    "lib/hades_web/controllers/hello_controller.ex"
   ]
 }
