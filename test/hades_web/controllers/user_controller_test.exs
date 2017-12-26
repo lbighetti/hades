@@ -20,11 +20,13 @@ defmodule HadesWeb.UserControllerTest do
 
   setup %{conn: conn} do
     user = user_fixture()
-    {:ok, conn: put_req_header(conn, "accept", "application/json"), user: user}
+    {:ok, token, _claims} = Hades.Guardian.encode_and_sign(user)
+    {:ok, conn: put_req_header(conn, "accept", "application/json"), user: user, token: token}
   end
 
   describe "get_user/2" do
-    test "renders user when data is valid", %{conn: conn, user: user} do
+    test "renders user when data is valid", %{conn: conn, user: user, token: token} do
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
       conn = get conn, user_path(conn, :get_user, user.id)
       body = json_response(conn, 200)
       assert body["data"]["email"] == @valid_attrs.email
