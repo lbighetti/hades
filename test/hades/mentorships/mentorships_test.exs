@@ -60,4 +60,55 @@ defmodule Hades.MentorshipsTest do
       assert mentor == Mentorships.get_mentor!(mentor.id)
     end
   end
+
+  describe "mentorees" do
+    alias Hades.Mentorships.Mentoree
+
+    @valid_attrs %{is_active: true, is_minority: true}
+    @update_attrs %{is_active: false, is_minority: false}
+    @invalid_attrs %{is_active: nil, is_minority: nil}
+
+    def mentoree_fixture(attrs \\ %{}) do
+      {:ok, mentoree} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Mentorships.create_mentoree()
+
+      mentoree
+    end
+
+    test "list_mentorees/0 returns all mentorees" do
+      mentoree = mentoree_fixture()
+      assert Mentorships.list_mentorees() == [mentoree]
+    end
+
+    test "get_mentoree!/1 returns the mentoree with given id" do
+      mentoree = mentoree_fixture()
+      assert Mentorships.get_mentoree!(mentoree.id) == mentoree
+    end
+
+    test "create_mentoree/1 with valid data creates a mentoree" do
+      assert {:ok, %Mentoree{} = mentoree} = Mentorships.create_mentoree(@valid_attrs)
+      assert mentoree.is_active == true
+      assert mentoree.is_minority == true
+    end
+
+    test "create_mentoree/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Mentorships.create_mentoree(@invalid_attrs)
+    end
+
+    test "update_mentoree/2 with valid data updates the mentoree" do
+      mentoree = mentoree_fixture()
+      assert {:ok, mentoree} = Mentorships.update_mentoree(mentoree, @update_attrs)
+      assert %Mentoree{} = mentoree
+      assert mentoree.is_active == false
+      assert mentoree.is_minority == false
+    end
+
+    test "update_mentoree/2 with invalid data returns error changeset" do
+      mentoree = mentoree_fixture()
+      assert {:error, %Ecto.Changeset{}} = Mentorships.update_mentoree(mentoree, @invalid_attrs)
+      assert mentoree == Mentorships.get_mentoree!(mentoree.id)
+    end
+  end
 end
