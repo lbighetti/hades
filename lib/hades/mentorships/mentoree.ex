@@ -3,7 +3,7 @@ defmodule Hades.Mentorships.Mentoree do
   import Ecto.Changeset
   alias Hades.Mentorships.Mentoree
 
-  @valid_attrs ~w(is_active is_minority)a
+  @valid_attrs ~w(is_active is_minority user_id)a
 
   schema "mentorees" do
     field :is_active, :boolean, default: false
@@ -18,5 +18,6 @@ defmodule Hades.Mentorships.Mentoree do
     mentoree
     |> cast(attrs, @valid_attrs)
     |> validate_required(@valid_attrs)
+    |> unique_constraint(:user_id)
   end
 end
