@@ -76,7 +76,7 @@ defmodule Hades.Accounts.AuthTest do
     end
   end
 
-  describe "signin/1" do
+  describe "signin/2" do
     test "authenticates user whith valid credentials", %{user: user} do
       assert {:ok, _token, _claims} = Auth.signin(user.email, "S0m3p4ssW0rd")
     end
