@@ -14,10 +14,10 @@ defmodule Hades.Accounts.Auth do
     end
   end
 
-  def signin(attrs \\ %{}) do
-    user = Repo.get_by(User, email: attrs[:email])
+  def signin(email, password) do
+    user = Repo.get_by(User, email: email)
     cond do
-      user && checkpw(attrs[:password], user.password_hash) ->
+      user && checkpw(password, user.password_hash) ->
         {:ok, _token, _claims} = Hades.Guardian.encode_and_sign(user)
       user ->
         {:error, :unauthorized}
