@@ -13,10 +13,10 @@ defmodule HadesWeb.Router do
   pipeline :authorized do
     plug :fetch_session
     plug Guardian.Plug.Pipeline, module: Hades.Guardian,
-      error_handler: Hades.AuthErrorHandler
+                                 error_handler: Hades.AuthErrorHandler
     plug Guardian.Plug.VerifyHeader, realm: "Bearer"
     plug Guardian.Plug.EnsureAuthenticated
-    plug Guardian.Plug.LoadResource
+    plug Guardian.Plug.LoadResource, allow_blank: true
   end
 
   scope "/api", HadesWeb do

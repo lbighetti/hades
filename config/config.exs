@@ -23,7 +23,9 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :hades, Hades.Guardian,
+  # The issuer of the token. Your application name/id
   issuer: "hades",
+  # The secret key to use for the implementation module. This may be any resolvable value for Guardian.Config
   secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 
 # Import environment specific config. This must remain at the bottom
