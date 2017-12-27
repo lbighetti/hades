@@ -76,6 +76,20 @@ defmodule Hades.Accounts.AuthTest do
     end
   end
 
+  describe "signin/1" do
+    test "authenticates user whith valid credentials", %{user: user} do
+      assert {:ok, _token, _claims} = Auth.signin(%{email: user.email, password: "S0m3p4ssW0rd"})
+    end
+
+    test "returns unauthorized when password is not valid", %{user: user} do
+      assert {:error, :unauthorized} = Auth.signin(%{email: user.email, password: "Wr0ngP455"})
+    end
+
+    test "returns not found when email is not valid" do
+      assert {:error, :not_found} = Auth.signin(%{email: FakeData.email, password: "S0m3p4ssW0rd"})
+    end
+  end
+
   describe "reset_password/2" do
     test "resets password with valid data", %{user: user} do
       assert {:ok, %User{}} = Auth.reset_password(user, @reset_password_valid_attrs)
