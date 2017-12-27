@@ -10,7 +10,6 @@ defmodule Hades.Accounts.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :password_hash, :string
-    field :auth_token, :string
     field :is_admin, :boolean
     has_one :mentor, Hades.Mentorships.Mentor
 
@@ -27,7 +26,6 @@ defmodule Hades.Accounts.User do
     |> Validation.validate_email
     |> Validation.validate_password
     |> Encryption.hash_password
-    |> Encryption.put_authentication_token
   end
 
   def changeset_update_user(user, attrs) do
