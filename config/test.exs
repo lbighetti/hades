@@ -17,3 +17,8 @@ config :hades, Hades.Repo,
   hostname: System.get_env("DATA_DB_HOST"),
   database: "hades_test",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Reduce the number of bcrypt, or pbkdf2, rounds so it
+# does not slow down the tests.
+config :comeonin, :bcrypt_log_rounds, 4
+config :comeonin, :pbkdf2_rounds, 1

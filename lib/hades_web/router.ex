@@ -24,6 +24,7 @@ defmodule HadesWeb.Router do
 
     get "/hello", HelloController, :hello
     post "/auth/signup", AuthController, :signup
+    post "/auth/signin", AuthController, :signin
   end
 
   scope "/api", HadesWeb do
