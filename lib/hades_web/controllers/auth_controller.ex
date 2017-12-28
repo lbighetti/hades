@@ -14,10 +14,10 @@ defmodule HadesWeb.AuthController do
   end
 
   def signin(conn, %{"user" => user_params}) do
-    with {:ok, token, claims} <- Auth.signin(user_params["email"], user_params["password"]) do
+    with {:ok, token, claims, user} <- Auth.signin(user_params["email"], user_params["password"]) do
       conn
       |> put_status(:created)
-      |> render("session.json", token: token, exp: claims["exp"])
+      |> render("session.json", user: user, token: token, exp: claims["exp"])
     end
   end
 end

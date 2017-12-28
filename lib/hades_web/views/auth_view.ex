@@ -7,8 +7,9 @@ defmodule HadesWeb.AuthView do
     %{data: render_one(user, UserView, "user.json")}
   end
 
-  def render("session.json", %{token: token, exp: exp}) do
+  def render("session.json", %{user: user, token: token, exp: exp}) do
     %{
+      data: render_one(user, UserView, "user.json"),
       meta: %{token: token, exp: exp}
     }
   end

@@ -21,7 +21,7 @@ defmodule HadesWeb.AuthControllerTest do
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =
       attrs
-      |> Enum.into(%{email: "john.doe@example.com", name: "some name", is_admin: FakeData.boolean, password: "S0m3p4ssW0rd"})
+      |> Enum.into(%{email: "john.doe@example.com", name: "some name", is_admin: false, password: "S0m3p4ssW0rd"})
       |> Auth.signup
     user
   end
@@ -51,6 +51,9 @@ defmodule HadesWeb.AuthControllerTest do
     test "authenticates user with valid credentials", %{conn: conn} do
       conn = post conn, auth_path(conn, :signin), user: %{ email: "john.doe@example.com", password: "S0m3p4ssW0rd" }
       body = json_response(conn, 201)
+      assert body["data"]["email"] == "john.doe@example.com"
+      assert body["data"]["name"] == "some name"
+      assert body["data"]["is_admin"] == false
       assert body["meta"]["token"]
       assert body["meta"]["exp"]
     end

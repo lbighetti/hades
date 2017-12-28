@@ -18,7 +18,8 @@ defmodule Hades.Accounts.Auth do
     user = Repo.get_by(User, email: email)
     cond do
       user && checkpw(password, user.password_hash) ->
-        {:ok, _token, _claims} = Hades.Guardian.encode_and_sign(user)
+        {:ok, token, claims} = Hades.Guardian.encode_and_sign(user)
+        {:ok, token, claims, user}
       user ->
         {:error, :unauthorized}
       true ->
