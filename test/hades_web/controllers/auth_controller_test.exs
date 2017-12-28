@@ -58,6 +58,12 @@ defmodule HadesWeb.AuthControllerTest do
       assert body["meta"]["exp"]
     end
 
+    test "returns bad request when no data is provided", %{conn: conn} do
+      conn = post conn, auth_path(conn, :signin)
+      body = json_response(conn, 400)
+      assert body == %{"errors" => %{"detail" => "Bad request"}}
+    end
+
     test "returns unauthorized when password is not valid", %{conn: conn} do
       conn = post conn, auth_path(conn, :signin), user: %{ email: "john.doe@example.com", password: "Wr0ngP455" }
       body = json_response(conn, 401)

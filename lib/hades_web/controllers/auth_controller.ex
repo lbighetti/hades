@@ -20,4 +20,9 @@ defmodule HadesWeb.AuthController do
       |> render("session.json", user: user, token: token, exp: claims["exp"])
     end
   end
+  def signin(conn, _params) do
+    conn
+    |> put_status(:bad_request)
+    |> render("bad_request.json")
+  end
 end

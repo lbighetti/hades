@@ -13,4 +13,8 @@ defmodule HadesWeb.AuthView do
       meta: %{token: token, exp: exp}
     }
   end
+
+  def render("bad_request.json", _params) do
+    %{errors: %{detail: "Bad request"}}
+  end
 end
