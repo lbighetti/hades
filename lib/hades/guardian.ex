@@ -1,7 +1,6 @@
 defmodule Hades.Guardian do
   use Guardian, otp_app: :hades
 
-  alias Hades.Accounts.User
   alias Hades.Accounts.Users
 
   def subject_for_token(user, _claims) do
