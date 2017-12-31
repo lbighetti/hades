@@ -23,10 +23,6 @@ defmodule Hades.Guardian do
 
   @doc """
     GuardianDB hooks with tokens lifecycle:
-
-      - after_encode_and_sign/4
-      - on_verify/3
-      - on_revoke/3
   """
   def after_encode_and_sign(resource, claims, token, _options) do
     with {:ok, _} <- Guardian.DB.after_encode_and_sign(resource, claims["typ"], claims, token) do
