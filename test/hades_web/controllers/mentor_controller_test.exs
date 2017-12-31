@@ -20,7 +20,7 @@ defmodule HadesWeb.MentorControllerTest do
     {:ok, user} =
       attrs
       |> Enum.into(%{email: FakeData.email, name: "some name", is_admin: FakeData.boolean, password: "S0m3p4ssW0rd"})
-      |> Auth.signup
+      |> Auth.sign_up
     user
   end
 

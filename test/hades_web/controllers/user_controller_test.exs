@@ -14,7 +14,7 @@ defmodule HadesWeb.UserControllerTest do
     {:ok, user} =
       attrs
       |> Enum.into(Map.merge(@valid_attrs, %{password: "S0m3p4ssW0rd"}))
-      |> Auth.signup
+      |> Auth.sign_up
     user
   end
 
