@@ -46,7 +46,6 @@ defmodule Hades.Mixfile do
       {:stream_data, "~> 0.1", only: :test},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 0.12.0"},
-      {:secure_random, "~> 0.5"},
       {:guardian, "~> 1.0"}
     ]
   end
