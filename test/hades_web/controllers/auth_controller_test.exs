@@ -27,8 +27,9 @@ defmodule HadesWeb.AuthControllerTest do
   end
 
   setup %{conn: conn} do
-    user_fixture()
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    user = user_fixture()
+    {:ok, token, _claims} = Hades.Guardian.encode_and_sign(user)
+    {:ok, conn: put_req_header(conn, "accept", "application/json"), user: user, token: token}
   end
 
   describe "sign_up/2" do
@@ -74,6 +75,15 @@ defmodule HadesWeb.AuthControllerTest do
       conn = post conn, auth_path(conn, :sign_in), user: %{ email: FakeData.email, password: "S0m3p4ssW0rd" }
       body = json_response(conn, 404)
       assert body == %{"errors" => %{"detail" => "Page not found"}}
+    end
+  end
+
+  describe "sign_out/2" do
+    test "revoke current user's token", %{conn: conn, token: token} do
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+      conn = delete conn, auth_path(conn, :sign_out)
+      body = json_response(conn, 200)
+      assert body["message"] == "You have signed out successfully!"
     end
   end
 end

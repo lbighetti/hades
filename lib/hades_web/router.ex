@@ -7,7 +7,7 @@ defmodule HadesWeb.Router do
   end
 
   pipeline :authorized do
-    HadesWeb.AuthPipeline
+    plug HadesWeb.AuthPipeline
   end
 
   scope "/api", HadesWeb do

@@ -26,7 +26,14 @@ config :hades, Hades.Guardian,
   # The issuer of the token. Your application name/id
   issuer: "hades",
   # The secret key to use for the implementation module. This may be any resolvable value for Guardian.Config
-  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY"),
+  token_module: Guardian.Token.Jwt
+
+config :guardian, Guardian.DB,
+  repo: Hades.Repo,
+  schema_name: "guardian_tokens", # default
+  token_types: ["refresh_token"], # store all token types if not set
+  sweep_interval: 60 # default: 60 minutes
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
