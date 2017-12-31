@@ -7,11 +7,7 @@ defmodule HadesWeb.Router do
   end
 
   pipeline :authorized do
-    plug Guardian.Plug.Pipeline, module: Hades.Guardian,
-                                 error_handler: HadesWeb.AuthErrorHandler
-    plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}, realm: "Bearer"
-    plug Guardian.Plug.EnsureAuthenticated
-    plug Guardian.Plug.LoadResource, ensure: true, allow_blank: true
+    HadesWeb.AuthPipeline
   end
 
   scope "/api", HadesWeb do
@@ -26,6 +22,7 @@ defmodule HadesWeb.Router do
     pipe_through [:api, :authorized]
 
     get "/users/:id", UserController, :get_user
+    delete "/auth/sign_out", AuthController, :sign_out
     resources "/mentors", MentorController, only: [:index, :create, :show, :update]
   end
 end
