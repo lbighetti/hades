@@ -19,4 +19,8 @@ defmodule HadesWeb.AuthView do
   def render("bad_request.json", _params) do
     %{errors: %{detail: "Bad request"}}
   end
+
+  def render("update_password.json", _params) do
+    %{message: "Password updated successfully!"}
+  end
 end

@@ -18,13 +18,13 @@ defmodule Hades.Accounts.AuthTest do
     password: nil
   }
 
-  @reset_password_valid_attrs %{
+  @update_password_valid_attrs %{
     old_password: "S0m3p4ssW0rd",
     password: "n3wP455w0rd",
     password_confirmation: "n3wP455w0rd"
   }
 
-  @reset_password_invalid_attrs %{
+  @update_password_invalid_attrs %{
     old_password: "S0m3p4ssW0rd",
     password: "n3wP455w0rd",
     password_confirmation: "d0ntm4tch"
@@ -93,17 +93,17 @@ defmodule Hades.Accounts.AuthTest do
     end
   end
 
-  describe "reset_password/2" do
+  describe "update_password/2" do
     test "resets password with valid data", %{user: user} do
-      assert {:ok, %User{}} = Auth.reset_password(user, @reset_password_valid_attrs)
+      assert {:ok, %User{}} = Auth.update_password(user, @update_password_valid_attrs)
     end
 
     test "returns error when passwords don't match", %{user: user} do
-      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, @reset_password_invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Auth.update_password(user, @update_password_invalid_attrs)
     end
 
     test "does not reset password when new password data is not provided", %{user: user} do
-      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, %{old_password: "S0m3p4ssW0rd"})
+      assert {:error, %Ecto.Changeset{}} = Auth.update_password(user, %{old_password: "S0m3p4ssW0rd"})
     end
   end
 end
