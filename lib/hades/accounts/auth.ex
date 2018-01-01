@@ -28,7 +28,7 @@ defmodule Hades.Accounts.Auth do
     end
   end
 
-  def reset_password(user, attrs) do
+  def update_password(user, attrs) do
     changeset = User.changeset_update_password(user, attrs)
 
     if checkpw(attrs[:old_password], user.password_hash) do

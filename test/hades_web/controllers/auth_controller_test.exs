@@ -86,4 +86,30 @@ defmodule HadesWeb.AuthControllerTest do
       assert body["message"] == "You have signed out successfully!"
     end
   end
+
+  describe "update_password" do
+    test "should update password when data is valid", %{conn: conn} do
+    end
+
+    test "should not update password when data is invalid", %{conn: conn} do
+    end
+
+    test "should not update password when password don't match", %{conn: conn} do
+    end
+
+    test "should not update password when password is blank", %{conn: conn} do
+    end
+
+    test "should not update password when password confirmation is blank", %{conn: conn} do
+    end
+
+    test "should not update password when password confirmation don't match", %{conn: conn} do
+    end
+
+    test "should not update password when password is too short", %{conn: conn} do
+    end
+
+    test "should not update password when password is too long", %{conn: conn} do
+    end
+  end
 end

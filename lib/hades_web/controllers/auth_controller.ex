@@ -32,4 +32,11 @@ defmodule HadesWeb.AuthController do
     conn
     |> render("sign_out.json")
   end
+
+  def update_password(conn, %{"user" => user_params}) do
+    user = Guardian.Plug.current_resource(conn)
+    with {:ok, %User{} = _user} <- Auth.update_password(user, user_params) do
+      render(conn, "update_password.json")
+    end
+  end
 end
