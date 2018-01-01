@@ -4,7 +4,7 @@ defmodule Hades.Accounts.Auth do
   alias Hades.Repo
   alias Hades.Accounts.User
 
-  def signup(attrs \\ %{}) do
+  def sign_up(attrs \\ %{}) do
     changeset = User.changeset(%User{}, attrs)
     case Repo.insert(changeset) do
       {:ok, user} ->
@@ -14,7 +14,7 @@ defmodule Hades.Accounts.Auth do
     end
   end
 
-  def signin(email, password) do
+  def sign_in(email, password) do
     user = Repo.get_by(User, email: email)
     cond do
       user && checkpw(password, user.password_hash) ->

@@ -12,6 +12,8 @@ defmodule Hades.Application do
       supervisor(Hades.Repo, []),
       # Start the endpoint when the application starts
       supervisor(HadesWeb.Endpoint, []),
+      # Guardian DB worker for sweeping out and cleaning outdated tokens
+      worker(Guardian.DB.Token.SweeperServer, [])
       # Start your own worker by calling: Hades.Worker.start_link(arg1, arg2, arg3)
       # worker(Hades.Worker, [arg1, arg2, arg3]),
     ]

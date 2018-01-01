@@ -6,31 +6,23 @@ defmodule HadesWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :unauthorized do
-    plug :fetch_session
-  end
-
   pipeline :authorized do
-    plug :fetch_session
-    plug Guardian.Plug.Pipeline, module: Hades.Guardian,
-                                 error_handler: Hades.AuthErrorHandler
-    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
-    plug Guardian.Plug.EnsureAuthenticated
-    plug Guardian.Plug.LoadResource, allow_blank: true
+    plug HadesWeb.AuthPipeline
   end
 
   scope "/api", HadesWeb do
-    pipe_through [:api, :unauthorized]
+    pipe_through :api
 
     get "/hello", HelloController, :hello
-    post "/auth/signup", AuthController, :signup
-    post "/auth/signin", AuthController, :signin
+    post "/auth/sign_up", AuthController, :sign_up
+    post "/auth/sign_in", AuthController, :sign_in
   end
 
   scope "/api", HadesWeb do
     pipe_through [:api, :authorized]
 
     get "/users/:id", UserController, :get_user
+    delete "/auth/sign_out", AuthController, :sign_out
     resources "/mentors", MentorController, only: [:index, :create, :show, :update]
   end
 end

@@ -34,7 +34,7 @@ defmodule Hades.Accounts.AuthTest do
     {:ok, user} =
       attrs
       |> Enum.into(Map.merge(@valid_attrs, %{email: FakeData.email, password: "S0m3p4ssW0rd"}))
-      |> Auth.signup
+      |> Auth.sign_up
     user
   end
 
@@ -43,53 +43,53 @@ defmodule Hades.Accounts.AuthTest do
     %{user: user}
   end
 
-  describe "signup/1" do
+  describe "sign_up/1" do
     test "creates a user with valid data" do
-      assert {:ok, %User{} = user} = Auth.signup(@valid_attrs)
+      assert {:ok, %User{} = user} = Auth.sign_up(@valid_attrs)
       assert user.email == @valid_attrs.email
       assert user.name == @valid_attrs.name
       assert user.is_admin == @valid_attrs.is_admin
     end
 
     test "returns error with invalid data" do
-      assert {:error, %Ecto.Changeset{}} = Auth.signup(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Auth.sign_up(@invalid_attrs)
     end
 
     test "does not create user when no data is provided" do
-      assert {:error, %Ecto.Changeset{}} = Auth.signup()
+      assert {:error, %Ecto.Changeset{}} = Auth.sign_up()
     end
 
     test "does not create user when email is too short" do
-      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :email, "a@.co"))
+      assert {:error, %Ecto.Changeset{}} = Auth.sign_up(Map.put(@valid_attrs, :email, "a@.co"))
     end
 
     test "does not create user when email has invalid format" do
-      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :email, "example.com"))
+      assert {:error, %Ecto.Changeset{}} = Auth.sign_up(Map.put(@valid_attrs, :email, "example.com"))
     end
 
     test "does not create user when password is too short" do
-      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :password, "S0m3p4s"))
+      assert {:error, %Ecto.Changeset{}} = Auth.sign_up(Map.put(@valid_attrs, :password, "S0m3p4s"))
     end
 
     test "does not create user when password has an invalid format" do
-      assert {:error, %Ecto.Changeset{}} = Auth.signup(Map.put(@valid_attrs, :password, "12345678"))
+      assert {:error, %Ecto.Changeset{}} = Auth.sign_up(Map.put(@valid_attrs, :password, "12345678"))
     end
   end
 
-  describe "signin/2" do
+  describe "sign_in/2" do
     test "authenticates user whith valid credentials", %{user: user} do
-      assert {:ok, _token, _claims, user} = Auth.signin(user.email, "S0m3p4ssW0rd")
+      assert {:ok, _token, _claims, user} = Auth.sign_in(user.email, "S0m3p4ssW0rd")
       assert user.email == user.email
       assert user.name == user.name
       assert user.is_admin == user.is_admin
     end
 
     test "returns unauthorized when password is not valid", %{user: user} do
-      assert {:error, :unauthorized} = Auth.signin(user.email, "Wr0ngP455")
+      assert {:error, :unauthorized} = Auth.sign_in(user.email, "Wr0ngP455")
     end
 
     test "returns not found when email is not valid" do
-      assert {:error, :not_found} = Auth.signin(FakeData.email, "S0m3p4ssW0rd")
+      assert {:error, :not_found} = Auth.sign_in(FakeData.email, "S0m3p4ssW0rd")
     end
   end
 

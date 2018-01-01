@@ -3,15 +3,17 @@ defmodule HadesWeb.AuthView do
 
   alias HadesWeb.UserView
 
-  def render("show.json", %{user: user}) do
+  def render("current_user.json", %{user: user}) do
     %{data: render_one(user, UserView, "user.json")}
   end
 
-  def render("session.json", %{user: user, token: token, exp: exp}) do
-    %{
-      data: render_one(user, UserView, "user.json"),
-      meta: %{token: token, exp: exp}
-    }
+  def render("sign_in.json", %{user: user, token: token, exp: exp}) do
+    %{data: render_one(user, UserView, "user.json"),
+      meta: %{token: token, exp: exp}}
+  end
+
+  def render("sign_out.json", _params) do
+    %{message: "You have signed out successfully!"}
   end
 
   def render("bad_request.json", _params) do
