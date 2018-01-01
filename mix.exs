@@ -47,7 +47,8 @@ defmodule Hades.Mixfile do
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 0.12.0"},
       {:guardian, "~> 1.0"},
-      {:guardian_db, "~> 1.0"}
+      {:guardian_db, "~> 1.0"},
+      {:ex_machina, "~> 2.1", only: :test}
     ]
   end
 

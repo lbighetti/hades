@@ -9,6 +9,8 @@ Hades is an open-source mentorship platform built with Elixir.
 To start Hades:
 
   * [Install nanobox](https://docs.nanobox.io/install/)
+  * Add required local environment variables `nanobox evar add local GUARDIAN_SECRET_KEY=G3RuCsdApqCOY8gWck97oWoj4m2aT87bblDRwEAsO4hJFHyiG9oKvN9OZcM/VkxM SECRET_KEY_BASE=zA1N9iIAglu8XZHfk+ZXTcGedeeMuuaMOqB/h0EGcq7AkroSHoaqfYdet9kjOTcx`
+  > Doesn't have to be these values, you can use `mix phx.gen.secret` to generate new ones if you want
   * Install dependencies with `nanobox run mix deps.get`
   * Create your database with `nanobox run mix ecto.create`
   * Migrate the database with `nanobox run mix ecto.migrate`
