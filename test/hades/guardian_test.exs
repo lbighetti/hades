@@ -1,26 +1,12 @@
 defmodule Hades.GuardianTest do
   use Hades.DataCase
 
+  import Hades.Factory
+
   alias Hades.FakeData
-  alias Hades.Accounts.Auth
-
-  @valid_attrs %{
-    email: FakeData.email,
-    name: "some name",
-    is_admin: FakeData.boolean,
-    password: "S0m3p4ssW0rd"
-  }
-
-  def user_fixture(attrs \\ %{}) do
-    {:ok, user} =
-      attrs
-      |> Enum.into(@valid_attrs)
-      |> Auth.sign_up
-    user
-  end
 
   setup do
-    user = user_fixture()
+    user = insert(:user, email: FakeData.email, is_admin: FakeData.boolean)
     {:ok, _tokens, claims} = Hades.Guardian.encode_and_sign(user)
     %{user: user, claims: claims}
   end

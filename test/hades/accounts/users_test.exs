@@ -1,8 +1,10 @@
 defmodule Hades.Accounts.UsersTest do
   use Hades.DataCase
 
+  import Hades.Factory
+
   alias Hades.FakeData
-  alias Hades.Accounts.{Auth, User, Users}
+  alias Hades.Accounts.{User, Users}
 
   @valid_attrs %{
     email: FakeData.email,
@@ -10,16 +12,8 @@ defmodule Hades.Accounts.UsersTest do
     is_admin: FakeData.boolean,
   }
 
-  def user_fixture(attrs \\ %{}) do
-    {:ok, user} =
-      attrs
-      |> Enum.into(Map.merge(@valid_attrs, %{password: "S0m3p4ssW0rd"}))
-      |> Auth.sign_up
-    user
-  end
-
   setup do
-    user = user_fixture()
+    user = insert(:user)
     %{user: user}
   end
 
