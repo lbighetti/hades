@@ -1,8 +1,9 @@
 defmodule HadesWeb.AuthControllerTest do
   use HadesWeb.ConnCase
 
+  import Hades.Factory
+
   alias Hades.FakeData
-  alias Hades.Accounts.Auth
 
   @valid_attrs %{
     email: FakeData.email,
@@ -18,16 +19,8 @@ defmodule HadesWeb.AuthControllerTest do
     password: nil
   }
 
-  def user_fixture(attrs \\ %{}) do
-    {:ok, user} =
-      attrs
-      |> Enum.into(%{email: "john.doe@example.com", name: "some name", is_admin: false, password: "S0m3p4ssW0rd"})
-      |> Auth.sign_up
-    user
-  end
-
   setup %{conn: conn} do
-    user = user_fixture()
+    user = insert(:user)
     {:ok, token, _claims} = Hades.Guardian.encode_and_sign(user)
     {:ok, conn: put_req_header(conn, "accept", "application/json"), user: user, token: token}
   end
@@ -49,12 +42,12 @@ defmodule HadesWeb.AuthControllerTest do
   end
 
   describe "sign_in/2" do
-    test "authenticates user with valid credentials", %{conn: conn} do
-      conn = post conn, auth_path(conn, :sign_in), user: %{ email: "john.doe@example.com", password: "S0m3p4ssW0rd" }
+    test "authenticates user with valid credentials", %{conn: conn, user: user} do
+      conn = post conn, auth_path(conn, :sign_in), user: %{ email: user.email, password: user.password }
       body = json_response(conn, 201)
-      assert body["data"]["email"] == "john.doe@example.com"
-      assert body["data"]["name"] == "some name"
-      assert body["data"]["is_admin"] == false
+      assert body["data"]["email"] == user.email
+      assert body["data"]["name"] == user.name
+      assert body["data"]["is_admin"] == user.is_admin
       assert body["meta"]["token"]
       assert body["meta"]["exp"]
     end
@@ -65,8 +58,8 @@ defmodule HadesWeb.AuthControllerTest do
       assert body == %{"errors" => %{"detail" => "Bad request"}}
     end
 
-    test "returns unauthorized when password is not valid", %{conn: conn} do
-      conn = post conn, auth_path(conn, :sign_in), user: %{ email: "john.doe@example.com", password: "Wr0ngP455" }
+    test "returns unauthorized when password is not valid", %{conn: conn, user: user} do
+      conn = post conn, auth_path(conn, :sign_in), user: %{ email: user.email, password: "Wr0ngP455" }
       body = json_response(conn, 401)
       assert body == %{"errors" => %{"detail" => "Unauthorized"}}
     end

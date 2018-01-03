@@ -7,7 +7,8 @@ defmodule Hades.Factory do
       name: "Jane Smith",
       email: sequence(:email, &"email-#{&1}@example.com"),
       password: "test.112",
-      password_hash: "$2b$12$HaSA5EZeWPmBzynzOU.7cutROZ.5wRqM/zJwu3kWACWUZbZ7JdKwi"
+      password_hash: "$2b$12$HaSA5EZeWPmBzynzOU.7cutROZ.5wRqM/zJwu3kWACWUZbZ7JdKwi",
+      is_admin: false
     }
   end
 
@@ -15,6 +16,15 @@ defmodule Hades.Factory do
     %Hades.Mentorships.Mentoree{
       is_active: true,
       is_minority: false,
+      user: build(:user),
+    }
+  end
+
+  def mentor_factory do
+    %Hades.Mentorships.Mentor{
+      is_active: true,
+      max_mentorships: 2,
+      skill_areas: ~w(Backend Frontend DevOps UX/UI Mobile Fullstack),
       user: build(:user),
     }
   end

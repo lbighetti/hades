@@ -1,6 +1,8 @@
 defmodule Hades.Accounts.AuthTest do
   use Hades.DataCase
 
+  import Hades.Factory
+
   alias Hades.FakeData
   alias Hades.Accounts.{Auth, User}
 
@@ -18,29 +20,10 @@ defmodule Hades.Accounts.AuthTest do
     password: nil
   }
 
-  @reset_password_valid_attrs %{
-    old_password: "S0m3p4ssW0rd",
-    password: "n3wP455w0rd",
-    password_confirmation: "n3wP455w0rd"
-  }
-
-  @reset_password_invalid_attrs %{
-    old_password: "S0m3p4ssW0rd",
-    password: "n3wP455w0rd",
-    password_confirmation: "d0ntm4tch"
-  }
-
-  def user_fixture(attrs \\ %{}) do
-    {:ok, user} =
-      attrs
-      |> Enum.into(Map.merge(@valid_attrs, %{email: FakeData.email, password: "S0m3p4ssW0rd"}))
-      |> Auth.sign_up
-    user
-  end
-
   setup do
-    user = user_fixture()
-    %{user: user}
+    user = insert(:user)
+    user2 = insert(:user)
+    %{user: user, user2: user2}
   end
 
   describe "sign_up/1" do
@@ -78,7 +61,7 @@ defmodule Hades.Accounts.AuthTest do
 
   describe "sign_in/2" do
     test "authenticates user whith valid credentials", %{user: user} do
-      assert {:ok, _token, _claims, user} = Auth.sign_in(user.email, "S0m3p4ssW0rd")
+      assert {:ok, _token, _claims, user} = Auth.sign_in(user.email, user.password)
       assert user.email == user.email
       assert user.name == user.name
       assert user.is_admin == user.is_admin
@@ -95,15 +78,27 @@ defmodule Hades.Accounts.AuthTest do
 
   describe "reset_password/2" do
     test "resets password with valid data", %{user: user} do
-      assert {:ok, %User{}} = Auth.reset_password(user, @reset_password_valid_attrs)
+      reset_password_valid_attrs =
+        %{
+          old_password: user.password,
+          password: "n3wP455w0rd",
+          password_confirmation: "n3wP455w0rd"
+        }
+      assert {:ok, %User{}} = Auth.reset_password(user, reset_password_valid_attrs)
     end
 
     test "returns error when passwords don't match", %{user: user} do
-      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, @reset_password_invalid_attrs)
+      reset_password_invalid_attrs =
+        %{
+          old_password: user.password,
+          password: "n3wP455w0rd",
+          password_confirmation: "d0ntm4tch"
+        }
+      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, reset_password_invalid_attrs)
     end
 
-    test "does not reset password when new password data is not provided", %{user: user} do
-      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, %{old_password: "S0m3p4ssW0rd"})
+    test "does not reset password when new password data is not provided", %{user2: user} do
+      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, %{old_password: user.password})
     end
   end
 end
