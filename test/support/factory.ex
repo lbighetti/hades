@@ -19,4 +19,13 @@ defmodule Hades.Factory do
       user: build(:user),
     }
   end
+
+  def mentor_factory do
+    %Hades.Mentorships.Mentor{
+      is_active: true,
+      max_mentorships: 2,
+      skill_areas: ~w(Backend Frontend DevOps UX/UI Mobile Fullstack),
+      user: build(:user),
+    }
+  end
 end
