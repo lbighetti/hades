@@ -3,18 +3,12 @@ defmodule HadesWeb.MentorControllerTest do
 
   import Hades.Factory
 
-  alias Hades.Mentorships
   alias Hades.Mentorships.Mentor
 
   @create_attrs %{is_active: true, max_mentorships: 2, skill_areas: ["Backend", "Frontend"]}
   @update_attrs %{is_active: false, max_mentorships: 3, skill_areas: ["Backend", "Frontend", "DevOps"]}
   @invalid_attrs %{is_active: nil, max_mentorships: nil, skill_areas: ["Bad input","Not a thing"]}
   @invalid_skill_areas_attrs %{is_active: false, max_mentorships: 3, skill_areas: ["Bad", "Skills"]}
-
-  def fixture(:mentor) do
-    {:ok, mentor} = Mentorships.create_mentor(@create_attrs)
-    mentor
-  end
 
   setup %{conn: conn} do
     user = insert(:user)
