@@ -1,4 +1,6 @@
 defmodule Hades.Accounts.Users do
+  import Comeonin.Bcrypt, only: [checkpw: 2]
+
   alias Hades.Repo
   alias Hades.Accounts.User
 
@@ -15,6 +17,21 @@ defmodule Hades.Accounts.Users do
     user
     |> User.changeset_update_user(attrs)
     |> Repo.update
+  end
+
+  def update_password(user, attrs) do
+    changeset = User.changeset_update_password(user, attrs)
+
+    if checkpw(attrs[:old_password], user.password_hash) do
+      case Repo.update(changeset) do
+        {:ok, user} ->
+          {:ok, user}
+        {:error, changeset} ->
+          {:error, changeset}
+      end
+    else
+      {:error, :invalid_password}
+    end
   end
 
   def delete_user(user), do: Repo.delete(user)
