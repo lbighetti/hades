@@ -22,4 +22,12 @@ defmodule HadesWeb.UserControllerTest do
       refute body["data"]["password"]
     end
   end
+
+  describe "update_user_status/2" do
+    test "renders user status with valid data", %{conn: conn, token: token} do
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+      conn = put conn, user_path(conn, :update_user_status), user: %{is_active: false}
+      assert json_response(conn, 200) == %{"message" => "User is inactive"}
+    end
+  end
 end

@@ -11,6 +11,8 @@ defmodule Hades.Accounts.User do
     field :password_confirmation, :string, virtual: true
     field :password_hash, :string
     field :is_admin, :boolean
+    field :is_active, :boolean
+
     has_one :mentor, Hades.Mentorships.Mentor
     has_one :mentoree, Hades.Mentorships.Mentoree
 
@@ -33,6 +35,12 @@ defmodule Hades.Accounts.User do
     user
     |> cast(attrs, [:email, :name, :is_admin])
     |> Validation.validate_email
+  end
+
+  def changeset_update_user_status(user, attrs) do
+    user
+    |> cast(attrs, [:is_active])
+    |> validate_required(:is_active)
   end
 
   def changeset_update_password(user, attrs) do
