@@ -75,30 +75,4 @@ defmodule Hades.Accounts.AuthTest do
       assert {:error, :not_found} = Auth.sign_in(FakeData.email, "S0m3p4ssW0rd")
     end
   end
-
-  describe "reset_password/2" do
-    test "resets password with valid data", %{user: user} do
-      reset_password_valid_attrs =
-        %{
-          old_password: user.password,
-          password: "n3wP455w0rd",
-          password_confirmation: "n3wP455w0rd"
-        }
-      assert {:ok, %User{}} = Auth.reset_password(user, reset_password_valid_attrs)
-    end
-
-    test "returns error when passwords don't match", %{user: user} do
-      reset_password_invalid_attrs =
-        %{
-          old_password: user.password,
-          password: "n3wP455w0rd",
-          password_confirmation: "d0ntm4tch"
-        }
-      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, reset_password_invalid_attrs)
-    end
-
-    test "does not reset password when new password data is not provided", %{user2: user} do
-      assert {:error, %Ecto.Changeset{}} = Auth.reset_password(user, %{old_password: user.password})
-    end
-  end
 end
