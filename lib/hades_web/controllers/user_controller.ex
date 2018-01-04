@@ -12,4 +12,12 @@ defmodule HadesWeb.UserController do
       |> render("show.json", user: user)
     end
   end
+
+  def update_password(conn, %{"user" => user_params}) do
+    current_user = Hades.Guardian.Plug.current_resource(conn)
+    with {:ok, %User{} = _user} <- Users.update_password(current_user, user_params) do
+      conn
+      |> render("update_password.json")
+    end
+  end
 end

@@ -13,8 +13,13 @@ defmodule Hades.Accounts.UsersTest do
   }
 
   @update_password_valid_attrs %{
-    password: "n3wP455w0rd",
-    password_confirmation: "n3wP455w0rd"
+    "password" => "n3wP455w0rd",
+    "password_confirmation" => "n3wP455w0rd"
+  }
+
+  @update_password_invalid_attrs %{
+    "password" => "n3wP455w0rd",
+    "password_confirmation" => "d0ntm4tch"
   }
 
   setup do
@@ -39,21 +44,15 @@ defmodule Hades.Accounts.UsersTest do
 
   describe "update_password/2" do
     test "updates password with valid data", %{user: user} do
-      assert {:ok, %User{}} = Users.update_password(user, Map.merge(@update_password_valid_attrs, %{old_password: user.password}))
+      assert {:ok, %User{}} = Users.update_password(user, Map.merge(@update_password_valid_attrs, %{"old_password" => "test.112"}))
     end
 
     test "returns error when passwords don't match", %{user: user} do
-      update_password_invalid_attrs =
-        %{
-          old_password: user.password,
-          password: "n3wP455w0rd",
-          password_confirmation: "d0ntm4tch"
-        }
-      assert {:error, %Ecto.Changeset{}} = Users.update_password(user, update_password_invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Users.update_password(user, Map.merge(@update_password_invalid_attrs, %{"old_password" => "test.112"}))
     end
 
     test "does not update password when new password data is not provided", %{user: user} do
-      assert {:error, %Ecto.Changeset{}} = Users.update_password(user, %{old_password: user.password})
+      assert {:error, %Ecto.Changeset{}} = Users.update_password(user, %{"old_password" => user.password})
     end
   end
 

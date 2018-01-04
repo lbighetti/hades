@@ -22,4 +22,20 @@ defmodule HadesWeb.UserControllerTest do
       refute body["data"]["password"]
     end
   end
+
+  describe "update_password/2" do
+    test "updates password when data is valid", %{conn: conn, token: token} do
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+      conn = put conn, user_path(conn, :update_password), user: %{old_password: "test.112", password: "N3wp455W0rd",
+        password_confirmation: "N3wp455W0rd"}
+      assert json_response(conn, 200) == %{"message" => "Password updated successfully!"}
+    end
+
+    test "does not updates password when passwords don't match", %{conn: conn, token: token} do
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+      conn = put conn, user_path(conn, :update_password), user: %{old_password: "test.112", password: "N3wp455",
+        password_confirmation: "N3wp455W0rd"}
+      assert json_response(conn, 422) == %{"errors" => %{"password_confirmation" => ["Passwords don't match"]}}
+    end
+  end
 end

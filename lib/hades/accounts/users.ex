@@ -22,7 +22,7 @@ defmodule Hades.Accounts.Users do
   def update_password(user, attrs) do
     changeset = User.changeset_update_password(user, attrs)
 
-    if checkpw(attrs[:old_password], user.password_hash) do
+    if checkpw(attrs["old_password"], user.password_hash) do
       case Repo.update(changeset) do
         {:ok, user} ->
           {:ok, user}
