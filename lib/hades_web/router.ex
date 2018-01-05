@@ -22,6 +22,7 @@ defmodule HadesWeb.Router do
     pipe_through [:api, :authorized]
 
     get       "/users/:id",            UserController,            :get_user
+    put       "/users",                UserController,            :update_user
     put       "/auth/update_password", UserController,            :update_password
     delete    "/auth/sign_out",        AuthController,            :sign_out
     resources "/mentors",              MentorController,   only: [:index, :create, :show, :update]
