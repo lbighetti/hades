@@ -21,6 +21,12 @@ defmodule HadesWeb.UserControllerTest do
       assert body["data"]["is_admin"] == user.is_admin
       refute body["data"]["password"]
     end
+
+    test "does not render user when data is invalid", %{conn: conn, token: token} do
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+      conn = get conn, user_path(conn, :get_user, -1)
+      assert json_response(conn, 404) == %{"errors" => %{"detail" => "Page not found"}}
+    end
   end
 
   describe "update_user/2" do

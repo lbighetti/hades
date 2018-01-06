@@ -12,6 +12,11 @@ defmodule Hades.Accounts.UsersTest do
     is_admin: FakeData.boolean,
   }
 
+  @invalid_attrs %{
+    email: "some email",
+    name: nil
+  }
+
   @update_password_valid_attrs %{
     "password" => "n3wP455w0rd",
     "password_confirmation" => "n3wP455w0rd"
@@ -31,6 +36,10 @@ defmodule Hades.Accounts.UsersTest do
     test "returns chosen resource with valid data", %{user: user} do
       assert {:ok, %User{} = _user} = Users.get_user!(user.id)
     end
+
+    test "returns error when user is not found" do
+      assert {:error, :not_found} = Users.get_user!(-1)
+    end
   end
 
   describe "update_user/2" do
@@ -39,6 +48,10 @@ defmodule Hades.Accounts.UsersTest do
       assert user.email == @valid_attrs.email
       assert user.name == @valid_attrs.name
       assert user.is_admin == @valid_attrs.is_admin
+    end
+
+    test "does not update user with invalid data", %{user: user} do
+      assert {:error, %Ecto.Changeset{}} = Users.update_user(user, @invalid_attrs)
     end
   end
 
