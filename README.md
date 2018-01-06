@@ -34,7 +34,7 @@ This project is hosting the Elixir backend, you should also check out the fronte
 
 To start contributing you should:
 
-* Read our Code of Conduct
+* Read our [Code of Conduct](CODE_OF_CONDUCT.md)
 * Have a look at our issues
 * Comment that you wanna work on one of them
 * Submit a PR
