@@ -11,6 +11,10 @@ defmodule HadesWeb.UserView do
     %{id: user.id, email: user.email, name: user.name, is_admin: user.is_admin}
   end
 
+  def render("update_password.json", _params) do
+    %{message: "Password updated successfully!"}
+  end
+
   def render("user_status.json", %{user: user}) do
     if user.is_active do
       %{message: "User is active"}
