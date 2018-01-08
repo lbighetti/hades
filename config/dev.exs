@@ -36,11 +36,18 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+config :hades, HadesWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: System.get_env("SECRET_KEY_BASE") || "HvIWd/ZF1WiA7QTgaoyxma/HIrDvaJvG5bwtsVMZdE1XQtYKVKYceyfPbdvoOczk"
+
 # Configure your database
 config :hades, Hades.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: System.get_env("DATA_DB_USER"),
-  password: System.get_env("DATA_DB_PASS"),
-  hostname: System.get_env("DATA_DB_HOST"),
+  username: System.get_env("DATA_DB_USER") || "postgres",
+  password: System.get_env("DATA_DB_PASS") || "postgres",
+  hostname: System.get_env("DATA_DB_HOST") || "localhost",
   database: "hades_dev",
   pool_size: 10
+
+config :hades, Hades.Guardian,
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY") || "bv9nff4fkVCiEQJvG9ELcz51XKcRzCY5yMNIIsVX3kYan8242ChWwtRab1VVhZso"
