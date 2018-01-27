@@ -39,6 +39,8 @@ defmodule Hades.Mentorships.Request do
     field :mentoree_level, :integer
 
     belongs_to :mentoree, Hades.Mentorships.Mentoree
+
+    timestamps()
   end
 
   @required_fields ~w(mentoree_id skill_area)a

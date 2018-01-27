@@ -93,4 +93,23 @@ defmodule Hades.MentorshipsTest do
       assert {:error, %Ecto.Changeset{}} = Mentorships.update_mentoree(mentoree, @invalid_attrs)
     end
   end
+
+  describe "requests" do
+    alias Hades.Mentorships.Request
+
+    @valid_attrs %{
+      status: 1,
+      skill_area: 1,
+      mentoree_level: 2
+    }
+
+    test "create_request/1 with valid data creates a request" do
+      mentoree = insert(:mentoree)
+      assert {:ok, %Request{} = request } = Mentorships.create_request(Map.merge(@valid_attrs, %{
+        mentoree_id: mentoree.id}))
+      assert Mentorships.request_status(request) == :active
+      assert Mentorships.request_skill_area(request) == :backend
+      assert Mentorships.request_mentoree_level(request) == :intermediate
+    end
+  end
 end
