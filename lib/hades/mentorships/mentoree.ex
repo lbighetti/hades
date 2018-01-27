@@ -8,7 +8,9 @@ defmodule Hades.Mentorships.Mentoree do
   schema "mentorees" do
     field :is_active, :boolean, default: false
     field :is_minority, :boolean, default: false
+
     belongs_to :user, Hades.Accounts.User
+    has_many :requests, Hades.Mentorships.Request
 
     timestamps()
   end

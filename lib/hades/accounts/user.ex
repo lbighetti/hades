@@ -11,6 +11,7 @@ defmodule Hades.Accounts.User do
     field :password_confirmation, :string, virtual: true
     field :password_hash, :string
     field :is_admin, :boolean
+
     has_one :mentor, Hades.Mentorships.Mentor
     has_one :mentoree, Hades.Mentorships.Mentoree
 
