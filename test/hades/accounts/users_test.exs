@@ -69,9 +69,14 @@ defmodule Hades.Accounts.UsersTest do
     end
   end
 
-  describe "delete_user/1" do
-    test "deletes user with valid data", %{user: user} do
-      assert {:ok, %User{} = _user} = Users.delete_user(user)
+  describe "update_user_status/2" do
+    test "updates user status with valid data", %{user: user} do
+      assert {:ok, %User{} = user} = Users.update_user_status(user, %{is_active: false})
+      assert user.is_active == false
+    end
+
+    test "does not update user status with invalid data", %{user: user} do
+      assert {:error, %Ecto.Changeset{}} = Users.update_user_status(user, %{is_active: nil})
     end
   end
 end

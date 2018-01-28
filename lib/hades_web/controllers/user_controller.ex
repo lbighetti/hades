@@ -22,11 +22,19 @@ defmodule HadesWeb.UserController do
     end
   end
 
-  def update_password(conn, %{"user" => user_params}) do
+  def update_user_password(conn, %{"user" => user_params}) do
     current_user = Hades.Guardian.Plug.current_resource(conn)
     with {:ok, %User{} = _user} <- Users.update_password(current_user, user_params) do
       conn
       |> render("update_password.json")
+    end
+  end
+
+  def update_user_status(conn, %{"user" => user_params}) do
+    current_user = Hades.Guardian.Plug.current_resource(conn)
+    with {:ok, %User{} = user} <- Users.update_user_status(current_user, user_params) do
+      conn
+      |> render("user_status.json", user: user)
     end
   end
 end

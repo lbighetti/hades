@@ -8,7 +8,8 @@ defmodule Hades.Factory do
       email: sequence(:email, &"email-#{&1}@example.com"),
       password: "test.112",
       password_hash: "$2b$12$HaSA5EZeWPmBzynzOU.7cutROZ.5wRqM/zJwu3kWACWUZbZ7JdKwi",
-      is_admin: false
+      is_admin: false,
+      is_active: true
     }
   end
 
