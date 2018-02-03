@@ -6,7 +6,7 @@ defmodule Hades.Mentorships do
   import Ecto.Query, warn: false
   alias Hades.Repo
 
-  alias Hades.Mentorships.Mentor
+  alias Hades.Mentorships.{Mentor, Mentoree, Request}
 
   @doc """
   Returns the list of mentors.
@@ -73,8 +73,6 @@ defmodule Hades.Mentorships do
     |> Repo.update()
   end
 
-  alias Hades.Mentorships.Mentoree
-
   @doc """
   Returns the list of mentorees.
 
@@ -138,5 +136,58 @@ defmodule Hades.Mentorships do
     mentoree
     |> Mentoree.changeset(attrs)
     |> Repo.update()
+  end
+
+  @doc """
+  Creates a request.
+
+  ## Examples
+
+      iex> create_request(%{field: value})
+      {:ok, %Request{}}
+
+      iex> create_request(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_request(attrs \\ %{}) do
+    %Request{}
+    |> Request.changeset(attrs)
+    |> Repo.insert
+  end
+
+  def request_status(%Request{} = request) do
+    status = request.status
+    if status == Request.status[:active] do :active else :inactive end
+  end
+
+  def request_skill_area(%Request{} = request) do
+    skill_area = request.skill_area
+    cond do
+      skill_area == Request.skill_area[:backend] ->
+        :backend
+      skill_area == Request.skill_area[:front_end] ->
+        :front_end
+      skill_area == Request.skill_area[:dev_ops] ->
+        :dev_ops
+      skill_area == Request.skill_area[:ux_ui] ->
+        :ux_ui
+      skill_area == Request.skill_area[:mobile] ->
+        :mobile
+      skill_area == Request.skill_area[:fullstack] ->
+        :fullstack
+    end
+  end
+
+  def request_mentoree_level(%Request{} = request) do
+    mentoree_level = request.mentoree_level
+    cond do
+      mentoree_level == Request.mentoree_level[:basic] ->
+        :basic
+      mentoree_level == Request.mentoree_level[:intermediate] ->
+        :intermediate
+      mentoree_level == Request.mentoree_level[:advanced] ->
+        :advanced
+    end
   end
 end
